@@ -40,5 +40,5 @@ userInfo.virtual("friendCount").get(function(){
     return this.friends.length 
 })
 
-const User = model('User', 'userInfo');
+const User = model('User', userInfo);
 module.exports = User; 
