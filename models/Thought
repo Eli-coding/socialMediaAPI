@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const reactionsM = requiere ("./Reaction")
 
 const thoughts = new Schema({
   thoughtText: {
@@ -15,4 +16,12 @@ const thoughts = new Schema({
     type: String,
     required: true,
   },
+
+  reactions: [reactionM]
 });
+
+thoughts.virtual("friendCount").get(function(){
+    return this.friends.length 
+
+const Thought = model('Thought', 'thoughts');
+module.exports = Thought; 
