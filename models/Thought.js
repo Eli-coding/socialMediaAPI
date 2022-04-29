@@ -28,7 +28,7 @@ const thoughtsInfo = new Schema({
 
 });
 
-thoughts.virtual("friendCount").get(function(){
+thoughtsInfo.virtual("friendCount").get(function(){
   return this.friends.length });
 
 const Thought = model('Thought', thoughtsInfo);

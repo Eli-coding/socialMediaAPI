@@ -6,7 +6,10 @@ const userControllers = {
         }).catch( (err)=>{
             res.status(500).json(err)
         })
-    }
+    },
+    getallUsers();
 }
 
 module.exports = userControllers; 
+
+// TO DO: create routes and update controllers
