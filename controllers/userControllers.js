@@ -7,7 +7,7 @@ const userControllers = {
             res.status(500).json(err)
         })
     },
-    getallUsers();
+    //getallUsers();
 }
 
 module.exports = userControllers; 
