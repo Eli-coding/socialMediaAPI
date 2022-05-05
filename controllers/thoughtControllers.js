@@ -47,12 +47,16 @@ const thoughtControllers = {
     });
   },
 
+  //update a thought
   updateThought(req, res) {},
 
+  //delete a thought
   thoughtDeleted(req, res) {},
 
+  //add a new reaction
   addReaction(req, res) {},
 
+  //delete a reaction
   deleteReaction(req, res) {},
 };
 
