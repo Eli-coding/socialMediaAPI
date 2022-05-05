@@ -24,11 +24,9 @@ const thoughtControllers = {
       })
       .then((thoughtinfo) => {
         if (!thoughtinfo) {
-          return res
-            .status(404)
-            .json({
-              message: "New thought created but no user found with this id.",
-            });
+          return res.status(404).json({
+            message: "New thought created but no user found with this id.",
+          });
         }
         res.json({ message: "New thought created successfully." });
       })
@@ -73,7 +71,31 @@ const thoughtControllers = {
   },
 
   //delete a thought
-  thoughtDeleted(req, res) {},
+  thoughtDeleted(req, res) {
+    Thought.findOneAndRemove({ _id: req.params.thoughtId })
+      .then((thoughtinfo) => {
+        if (thoughtinfo) {
+          return res.status(404).json({ message: "No thought with this id" });
+        }
+        return User.findOneAndUpdate(
+          { thoughts: req.params.thoughtId },
+          { $pull: { thoughts: req.params.thoughtId } },
+          { new: true }
+        );
+      })
+      .then((thoughtinfo) => {
+        if (!thoughtinfo) {
+          return res
+            .status(404)
+            .json({ message: "Thought created yet no user with this id." });
+        }
+        res.json({ message: "Thought deleted successfully." });
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(500).json(error);
+      });
+  },
 
   //add a new reaction
   addReaction(req, res) {},
