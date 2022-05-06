@@ -98,10 +98,42 @@ const thoughtControllers = {
   },
 
   //add a new reaction
-  addReaction(req, res) {},
+  addReaction(req, res) {
+    Thought.findOneAndUpdat(
+      { _id: req.params.thoughtId },
+      { $addToSet: { reactions: req.body } },
+      { runValidators: true, new: true }
+    )
+      .then((thoughtinfo) => {
+        if (!thoughtinfo) {
+          return res.status(404).json({ message: "No thought with this id." });
+        }
+        res.json(thoughtinfo);
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(500).json(error);
+      });
+  },
 
   //delete a reaction
-  deleteReaction(req, res) {},
+  deleteReaction(req, res) {
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
+      { runValidators: true, new: true }
+    )
+      .then((thoughtinfo) => {
+        if (!thoughtinfo) {
+          return res.status(404).json({ message: "No thought with this id." });
+        }
+        res.json(thoughtinfo);
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(500).json(error);
+      });
+  },
 };
 
 module.children = thoughtControllers;
