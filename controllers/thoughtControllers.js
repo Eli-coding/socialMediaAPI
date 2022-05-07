@@ -2,16 +2,14 @@ const { User, Thought } = require("../models");
 const thoughtControllers = {
   //get all thoughts
   getallThought(req, res) {
-    console.log('in the function')
+    console.log("in the function");
     Thought.find()
       .sort({ createdAt: -1 })
       .then((thoughtinfo) => {
-
-        console.log(thoughtinfo);
         res.json(thoughtinfo);
-
       })
       .catch((error) => {
+        console.log(error);
         res.status(500).json(error);
       });
   },
@@ -41,14 +39,14 @@ const thoughtControllers = {
 
   // get one thought by id
   onlyOneThought(req, res) {
-    Thought.findOne({ _id: req.params.userId })
+    console.log('inside the only one thought');
+    Thought.findOne({ _id:req.params.thoughtId })
       .then((thoughtinfo) => {
         if (!thoughtinfo) {
-          return res
-            .status(404)
+          return res.status(404)
             .json({ message: "No user with this ID found" });
         }
-        res.json(userinfo);
+        res.json(userinfo); //change from user info
       })
       .catch((error) => {
         res.status(500).json(error);

@@ -28,8 +28,8 @@ const thoughtsInfo = new Schema({
 
 });
 
-thoughtsInfo.virtual("friendCount").get(function(){
-  return this.friends.length });
+thoughtsInfo.virtual("reactionCount").get(function(){
+  return this.reactions.length });
 
 const Thought = model('Thought', thoughtsInfo);
 module.exports = Thought; 

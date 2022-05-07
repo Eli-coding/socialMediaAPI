@@ -19,8 +19,7 @@ const userControllers = {
      .populate("friends")
     .populate("thoughts")
       .then((userinfo) => {
-        console.log('this inside only one user');
-        console.log(userinfo);
+        
         if (!userinfo) {
           return res
             .status(404)
