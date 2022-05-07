@@ -13,10 +13,14 @@ const userControllers = {
   },
   //gets a single user by its _id and populated thought and friend data
   onlyOneUser(req, res) {
+    
     User.findOne({ _id: req.params.userId })
-      .populate("friends")
-      .populate("thougths")
+
+     .populate("friends")
+    .populate("thoughts")
       .then((userinfo) => {
+        console.log('this inside only one user');
+        console.log(userinfo);
         if (!userinfo) {
           return res
             .status(404)
@@ -68,19 +72,22 @@ userDeleted(req, res) {
       return res.status(404).json({message:'No user with this ID found'});
 
     }
-  })
+     return res.json(userinfo);
+  }).catch((error) =>{
+    res.status(500).json(error);
+  });
 },
 
 // add friend for user
 addFriend(req,res){
-  ({_id:req.params.userId}, 
-  {$pull:{friends:req.params.friendId}}
+  User.findOneAndUpdate({_id:req.params.userId}, 
+  {$push:{friends:req.params.friendId}}
   ,{new:true})
   .then ((userinfo) => {
     if(!userinfo){
       return res.status(404).json({message:'No user with this ID found'});
     }
-    res.join(userinfo);
+    res.json(userinfo);
 
   }).catch((error) =>{
     console.log(error);

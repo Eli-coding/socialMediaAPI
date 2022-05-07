@@ -2,10 +2,14 @@ const { User, Thought } = require("../models");
 const thoughtControllers = {
   //get all thoughts
   getallThought(req, res) {
+    console.log('in the function')
     Thought.find()
       .sort({ createdAt: -1 })
       .then((thoughtinfo) => {
+
+        console.log(thoughtinfo);
         res.json(thoughtinfo);
+
       })
       .catch((error) => {
         res.status(500).json(error);
@@ -136,4 +140,4 @@ const thoughtControllers = {
   },
 };
 
-module.children = thoughtControllers;
+module.exports = thoughtControllers;
