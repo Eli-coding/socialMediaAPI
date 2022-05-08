@@ -105,7 +105,7 @@ const thoughtControllers = {
   addReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $addToSet: { reactions: req.body.reactions } },
+      { $addToSet: { reactions: req.body } },
       { runValidators: true, new: true }
     )
       .then((thoughtinfo) => {
@@ -125,14 +125,16 @@ const thoughtControllers = {
   deleteReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { reactions: { reactionId: req.body.reactionId } } },
+      { $pull: { reactions: { reactionId: req.body.reactionId} } },
       { runValidators: true, new: true }
     )
       .then((thoughtinfo) => {
         if (!thoughtinfo) {
           return res.status(404).json({ message: "No thought with this id." });
-        }
-        res.json(thoughtinfo);
+        } 
+       
+         //res.json(thoughtinfo);
+         res.json({ message: "Thought deleted successfully." });
       })
       .catch((error) => {
         console.log(error);
