@@ -39,14 +39,16 @@ const thoughtControllers = {
 
   // get one thought by id
   onlyOneThought(req, res) {
-    console.log('inside the only one thought');
-    Thought.findOne({ _id:req.params.thoughtId })
+    // 
+  
+      console.log('inside the only one thought');
+      Thought.findOne({ _id: params.thoughtId })
       .then((thoughtinfo) => {
         if (!thoughtinfo) {
           return res.status(404)
             .json({ message: "No user with this ID found" });
         }
-        res.json(userinfo); //change from user info
+        res.json(thoughtinfo);
       })
       .catch((error) => {
         res.status(500).json(error);
