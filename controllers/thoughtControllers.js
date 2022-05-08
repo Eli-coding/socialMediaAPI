@@ -124,6 +124,7 @@ const thoughtControllers = {
   //delete a reaction
   deleteReaction(req, res) {
     Thought.findOneAndUpdate(
+     
       { _id: req.params.thoughtId },
       { $pull: { reactions: { reactionId: req.body.reactionId} } },
       { runValidators: true, new: true }
@@ -134,7 +135,7 @@ const thoughtControllers = {
         } 
        
          //res.json(thoughtinfo);
-         res.json({ message: "Thought deleted successfully." });
+         res.json({ message: "Reaction deleted successfully." });
       })
       .catch((error) => {
         console.log(error);
