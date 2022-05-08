@@ -38,7 +38,7 @@ const thoughtControllers = {
   },
 
   // get one thought by id
-  onlyOneThought(req, res) {
+  onlyOneThought({params}, res) {
     // 
   
       console.log('inside the only one thought');
@@ -83,7 +83,7 @@ const thoughtControllers = {
         }
         return User.findOneAndUpdate(
           { thoughts: req.params.thoughtId },
-          { $pull: { thoughts: req.params.thoughtId } },
+          { $push: { thoughts: req.params.thoughtId } },
           { new: true }
         );
       })
@@ -103,7 +103,7 @@ const thoughtControllers = {
 
   //add a new reaction
   addReaction(req, res) {
-    Thought.findOneAndUpdat(
+    Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $addToSet: { reactions: req.body } },
       { runValidators: true, new: true }
@@ -113,6 +113,7 @@ const thoughtControllers = {
           return res.status(404).json({ message: "No thought with this id." });
         }
         res.json(thoughtinfo);
+        
       })
       .catch((error) => {
         console.log(error);
